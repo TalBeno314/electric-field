@@ -27,11 +27,11 @@ function setup() {
         }
     }
 
-    newX = createInput().position(160, 610);
+    newX = createInput().position(170, 610);
     createP('Insert New x Coordinate: ').position(0, 595);
-    newY = createInput().position(160, 640);
+    newY = createInput().position(170, 640);
     createP('Insert New y Coordinate: ').position(0, 625);
-    newCharge = createInput().position(160, 670);
+    newCharge = createInput().position(170, 670);
     createP('Insert New Charge [nC]: ').position(0, 655);
 
     createButton('Create New Point Charge').position(350, 610).mouseClicked(createNewCharge);
