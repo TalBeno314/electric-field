@@ -4,6 +4,7 @@ class PointCharge {
         this.charge = charge;
 
         this.selected = false;
+        this.moveable = false;
     }
 
     distance(inX, inY) {
@@ -15,6 +16,9 @@ class Vector {
     constructor(origin) {
         this.origin = origin;
 
-        this.dest;
+        this.arrow = createVector(0, 0);
+        this.magnitude = 0;
+
+        this.tempVector = createVector(0, 0);
     }
 }
