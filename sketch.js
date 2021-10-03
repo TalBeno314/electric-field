@@ -13,7 +13,7 @@ let newCharge, newX, newY;
 let touchTime;
 
 function setup() {
-    createCanvas(windowWidth / 2, 600);
+    createCanvas(810, 600);
     frameRate(30);
 
     vectors = new Array(floor(width / distance) + 1);
@@ -152,41 +152,45 @@ function draw() {
 }
 
 function touchStarted() {
+    //make all charges stationary
     pointCharges.forEach(charge => {
         charge.moveable = false;
     });
 
+    //detected a charge such that the mouse is on the circle representing it
     let selectedCharge = pointCharges.find(charge => charge.distance(mouseX, mouseY) < 15);
     if (selectedCharge != undefined) {
+        //making the charge moveable
         selectedCharge.moveable = true;
     }
 }
 
 function touchEnded() {
+    //making all charges stationary
     pointCharges.forEach(charge => {
         charge.moveable = false;
     })
 }
 
 function createNewCharge() {
-    let x = newX.value()
-    let y = newY.value()
-    let charge = newCharge.value()
+    //retrieving value from input boxes
+    let x = newX.value();
+    let y = newY.value();
+    let charge = newCharge.value();
 
-    console.log(x, y, charge);
-
-    if (x.length > 0 && y.length > 0 && charge.length > 0) {
-        if (!isNaN(x) && !isNaN(y) && !isNaN(charge)) {
+    if (x.length > 0 && y.length > 0 && charge.length > 0) { //checking that all of the inputs are not empty
+        if (!isNaN(x) && !isNaN(y) && !isNaN(charge)) { //checking that all inputs are numbers
             x = parseFloat(x);
             y = parseFloat(y);
             charge = parseFloat(charge);
 
-            pointCharges.push(new PointCharge(createVector(x, y), charge));
+            pointCharges.push(new PointCharge(createVector(x, y), charge)); //creating a new charge
         }
     }
 }
 
 function drawArrow(base, vec, myColor) {
+    //need to learn how the fuck that works
     push();
     stroke(myColor);
     strokeWeight(3);
@@ -206,16 +210,13 @@ function makeInvisible() {
 
 function next() {
     let selected = pointCharges.find(charge => charge.selected)
-    console.log(selected);
     if (selected != undefined) {
         let index = pointCharges.indexOf(selected);
         selected.selected = false;
         if (index < pointCharges.length - 1) {
             pointCharges[index + 1].selected = true;
-            console.log(pointCharges[index + 1]);
         }
     } else {
-        //selected.selected = false;
         pointCharges[0].selected = true;
 
     }
@@ -223,7 +224,6 @@ function next() {
 
 function previous() {
     let selected = pointCharges.find(charge => charge.selected);
-    console.log(selected);
     if (selected != undefined) {
         let index = pointCharges.indexOf(selected);
         selected.selected = false;
