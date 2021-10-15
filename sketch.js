@@ -185,8 +185,31 @@ function createNewCharge() {
             charge = parseFloat(charge);
 
             pointCharges.push(new PointCharge(createVector(x, y), charge)); //creating a new charge
+
+            newX.value("")
+            newY.value("")
+                //newCharge.value("")
         }
     }
+
+    if (x.length == 0 && y.length == 0 && charge.length > 0) {
+        if (!isNaN(charge)) {
+            charge = parseFloat(charge);
+            let selectedCharge = pointCharges.find(charge => charge.selected);
+            if (selectedCharge != undefined) {
+                selectedCharge.charge = charge;
+            } else {
+                pointCharges.push(new PointCharge(createVector(width / 2, height / 2), charge));
+            }
+        }
+    }
+
+    if (x.length == 0 && y.length == 0 && charge.length == 0) {
+        pointCharges.push(new PointCharge(createVector(width / 2, height / 2), 1));
+    }
+
+    newX.value("")
+    newY.value("")
 }
 
 function drawArrow(base, vec, myColor) {
