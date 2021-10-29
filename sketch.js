@@ -76,6 +76,8 @@ function draw() {
                 //to be later used to draw the vector
                 eVector.arrow = arrow;
                 eVector.magnitude = Fmag;
+            } else {
+                eVector.magnitude = 0;
             }
         })
     });
