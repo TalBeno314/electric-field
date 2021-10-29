@@ -24,20 +24,20 @@ function setup() {
         }
     }
 
-    newX = createInput().position(200, 610);
-    createP('Insert New x Coordinate: ').position(0, 595);
-    newY = createInput().position(200, 640);
-    createP('Insert New y Coordinate: ').position(0, 625);
-    newCharge = createInput().position(200, 670);
+    newX = createInput().position(220, 610);
+    createP('Insert New x Coordinate (0-810): ').position(0, 595);
+    newY = createInput().position(220, 640);
+    createP('Insert New y Coordinate (0-600): ').position(0, 625);
+    newCharge = createInput().position(220, 670);
     createP('Insert New Charge Quantity: ').position(0, 655);
 
-    createButton('Create New Charge').position(380, 610).mouseClicked(createNewCharge);
-    createButton('Make Charges Invisible').position(380, 640).mouseClicked(makeInvisible);
+    createButton('Create New Charge').position(400, 610).mouseClicked(createNewCharge);
+    createButton('Make Charges Invisible').position(400, 640).mouseClicked(makeInvisible);
 
-    createButton('Next Charge').position(380, 670).mouseClicked(next);
-    createButton('Previous Charge').position(480, 670).mouseClicked(previous);
+    createButton('Next Charge').position(400, 670).mouseClicked(next);
+    createButton('Previous Charge').position(500, 670).mouseClicked(previous);
 
-    createButton('Delete Charge').position(520, 610).mouseClicked(deleteCharge);
+    createButton('Delete Charge').position(540, 610).mouseClicked(deleteCharge);
 }
 
 function draw() {
