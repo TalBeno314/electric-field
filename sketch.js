@@ -54,41 +54,29 @@ function draw() {
             pointCharges.forEach(pointCharge => {
                 //calculating field strength for a specific charge
                 let position = pointCharge.position;
-                let E = pointCharge.charge / (pointCharge.distance(vector.x, vector.y) ** 2)
-                let tempVector = createVector(Math.abs(vector.x - position.x), Math.abs(vector.y - position.y));
-                let direction = createVector(1, 0).angleBetween(tempVector);
+                let r = pointCharge.distance(vector.x, vector.y);
+                let direction = createVector((position.x - vector.x) / r, (position.y - vector.y) / r);
+                let Emag = -pointCharge.charge / r ** 2;
+                let E = createVector(direction.x * Emag, direction.y * Emag);
 
-                let E_x = (Math.abs(E) ** 2) * Math.cos(direction) * ((vector.x - position.x > 1) ? (1) : (-1)) / E;
-                let E_y = (Math.abs(E) ** 2) * Math.sin(direction) * ((vector.y - position.y > 1) ? (1) : (-1)) / E;
-
-                field.x += E_x;
-                field.y += E_y;
+                field.x += E.x;
+                field.y += E.y;
             });
 
-            let tempVector = createVector(Math.abs(field.x), Math.abs(field.y));
-            let magnitude = sqrt(tempVector.magSq());
-            let direction = createVector(1, 0).angleBetween(tempVector);
-
             let closeCharge = pointCharges.find(charge => charge.distance(vector.x, vector.y) < 15);
-            if (closeCharge != undefined) {
-                magnitude = 0;
+            if (closeCharge == undefined) {
+                let Fmag = sqrt(field.magSq());
+                let arrow = createVector((distance - 10) * field.x / Fmag, (distance - 10) * field.y / Fmag);
+
+                //updating the values of the maximum field strength and the minimum field strength
+                if (Math.abs(Fmag) > maxStrength) maxStrength = Math.abs(Fmag);
+                if (Math.abs(Fmag) < minStrength) minStrength = Math.abs(Fmag);
+
+                //storing the arrow vector and magnitude in the Vector object
+                //to be later used to draw the vector
+                eVector.arrow = arrow;
+                eVector.magnitude = Fmag;
             }
-
-            //scaling down the vector to a uniform length
-            //the strength of the field would be shown using colour
-            let F_x = (distance - 10) * Math.cos(direction) * tempVector.x / field.x;
-            let F_y = (distance - 10) * Math.sin(direction) * tempVector.y / field.y;
-
-            let arrow = createVector(F_x, F_y);
-
-            //updating the values of the maximum field strength and the minimum field strength
-            if (Math.abs(magnitude) > maxStrength) maxStrength = Math.abs(magnitude);
-            if (Math.abs(magnitude) < minStrength) minStrength = Math.abs(magnitude);
-
-            //storing the arrow vector and magnitude in the Vector object
-            //to be later used to draw the vector
-            eVector.arrow = arrow;
-            eVector.magnitude = magnitude;
         })
     });
 
